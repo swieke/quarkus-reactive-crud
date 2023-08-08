@@ -40,12 +40,27 @@ You can create a native executable using:
 
 Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
 ```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+./mvnw package -Dnative -Dquarkus.native.container-build=true -Dquarkus.native.container-runtime=docker
 ```
 
 You can then execute your native executable with: `./target/getting-started-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+
+## Creating docker image and running it
+
+The runner, that has been created is 64-bit ARM aarch64 executable and can be used to create a docker container
+
+```shell script
+docker build -f src/main/docker/Dockerfile.native -t quarkus/your-app .
+```
+
+Then run it
+
+```shell script
+docker run --rm -p 8080:8080 quarkus/your-app
+```
+
 
 ## Related Guides
 
